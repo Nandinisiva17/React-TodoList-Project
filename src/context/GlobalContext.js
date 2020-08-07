@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from "react"
 import AppReducer from "./AppReducer"
 let airtable = require("airtable")
-export let base = new airtable({ apiKey: "keycZsdX3MIal6qQy" }).base("appBKp6SBRJR07nCw")
+export let base = new airtable({ apiKey: process.env.REACT_APP_AIRTABLE_API_KEY }).base(process.env.REACT_APP_AIRTABLE_PRACTICE_BASE)
 
 const initialState = {
   tasks: []

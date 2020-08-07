@@ -5,11 +5,11 @@ import AddTask from "./components/AddTask"
 import EditTask from "./components/EditTask"
 import { GlobalProvider } from "./context/GlobalContext"
 import "bootstrap/dist/css/bootstrap.min.css"
+require("dotenv").config()
 
 const App = () => {
   return (
     <div style={{ maxWidth: "60rem", margin: "4rem auto" }}>
-      <pre>{process.env.REACT_APP_AIRTABLE_API_KEY}</pre>
       <GlobalProvider>
         <Router>
           <Switch>
