@@ -6,12 +6,28 @@ import { GlobalContext, base } from "../context/GlobalContext"
 function Heading() {
   const { retrievedTasks } = useContext(GlobalContext)
   const [disabled, setDisabled] = useState(false)
+  const axios = require("axios")
 
   const handleClick = async () => {
     const tasks = []
-    const records = await base("Todo List").select({ view: "Grid view" }).firstPage()
-    records.forEach(record => {
-      tasks.push({ id: record.id, name: record.fields.Task, status: record.fields.Status, date: record.fields["Due Date"] })
+
+    // await fetch("https://ah0d5n98cf.execute-api.ap-southeast-1.amazonaws.com/Prod/retrieverecord")
+    //   .then(res => res.json())
+    //   .then(records => {
+    //     console.log(records)
+    //     records.message.forEach(record => {
+    //       console.log(record)
+    //       tasks.push({ id: record.fields.id, name: record.fields.Task, status: record.fields.Status, date: record.fields["Due Date"] })
+    //     })
+    //   })
+    //   .catch(e => {
+    //     console.log("Error", e)
+    //   })
+    await axios.get("https://a2p861ej4f.execute-api.ap-southeast-1.amazonaws.com/Prod/retrieverecord").then(results => {
+      const records = results.data
+      records.message.forEach(record => {
+        tasks.push({ id: record.fields.uuid, name: record.fields.Task, status: record.fields.Status, date: record.fields["Due Date"] })
+      })
     })
     retrievedTasks(tasks)
     setDisabled(!disabled)

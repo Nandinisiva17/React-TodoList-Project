@@ -13,6 +13,7 @@ function EditTask(props) {
   })
   const history = useHistory()
   const currentTaskId = props.match.params.id
+  const axios = require("axios")
 
   useEffect(() => {
     const taskId = currentTaskId
@@ -20,18 +21,34 @@ function EditTask(props) {
     setSelectedTask(selectedTask)
   }, [tasks, currentTaskId])
 
-  const handleEditSubmit = e => {
+  const handleEditSubmit = async e => {
     e.preventDefault()
-    base("Todo List").update([
-      {
-        id: selectedTask.id,
-        fields: {
-          Task: selectedTask.name,
-          Status: selectedTask.status,
-          "Due Date": selectedTask.date
+    console.log("selectedid: ", selectedTask.id)
+    await axios
+      .put(`https://a2p861ej4f.execute-api.ap-southeast-1.amazonaws.com/Prod/updaterecordid/${selectedTask.id}`, {
+        task: selectedTask.name,
+        status: selectedTask.status,
+        duedate: selectedTask.date
+      })
+      .then(
+        response => {
+          console.log("response: ", response)
+        },
+        error => {
+          console.log(error)
         }
-      }
-    ])
+      )
+    // console.log(result.status)
+    // base("Todo List").update([
+    //   {
+    //     id: selectedTask.id,
+    //     fields: {
+    //       Task: selectedTask.name,
+    //       Status: selectedTask.status,
+    //       "Due Date": selectedTask.date
+    //     }
+    //   }
+    // ])
     editTask(selectedTask)
     history.push("/")
   }

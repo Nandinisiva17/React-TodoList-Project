@@ -9,38 +9,62 @@ function AddTask() {
   const [name, setName] = useState("")
   const [status, setStatus] = useState("")
   const [date, setDate] = useState("")
+  const axios = require("axios")
+  const { v4: uuidv4 } = require("uuid")
 
-  const handleAddSubmit = e => {
+  const handleAddSubmit = async e => {
+    e.preventDefault()
     const task = {
-      id: "",
+      id: uuidv4(),
       name,
       status,
       date
     }
 
-    base("Todo List").create(
-      [
-        {
-          fields: {
-            Task: task.name,
-            Status: task.status,
-            "Due Date": task.date
-          }
-        }
-      ],
-      function (err, records) {
-        if (err) {
-          console.error(err)
-          return
-        }
-        records.forEach(function (record) {
-          task.id = record.getId()
+    await axios
+      .post("https://a2p861ej4f.execute-api.ap-southeast-1.amazonaws.com/Prod/createrecord", {
+        task: task.name,
+        status: task.status,
+        duedate: task.date,
+        uuid: task.id
+      })
+      .then(
+        response => {
+          console.log("response: ", response)
+          console.log(task)
+          console.log("uuid: ", uuidv4())
           addTask(task)
-        })
-      }
-    )
-    console.log(task)
+        },
+        error => {
+          console.log(error)
+        }
+      )
     history.push("/")
+    //
+
+    // base("Todo List").create(
+    //   [
+    //     {
+    //       fields: {
+    //         Task: task.name,
+    //         Status: task.status,
+    //         "Due Date": task.date
+    //       }
+    //     }
+    //   ],
+    //   function (err, records) {
+    //     if (err) {
+    //       console.error(err)
+    //       return
+    //     }
+    //     records.forEach(function (record) {
+    //       task.id = record.getId()
+    //       addTask(task)
+    //     })
+    //   }
+    // )
+    // console.log(task)
+    // history.push("/")
   }
 
   return (

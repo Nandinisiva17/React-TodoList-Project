@@ -5,7 +5,7 @@ import { GlobalContext, base } from "../context/GlobalContext"
 
 function TaskList() {
   const { tasks, removeTask } = useContext(GlobalContext)
-
+  const axios = require("axios")
   return (
     <ListGroup>
       {tasks.map(task => (
@@ -27,9 +27,12 @@ function TaskList() {
               Edit
             </Link>
             <Button
-              onClick={() => {
+              onClick={async () => {
                 removeTask(task.id)
-                base("Todo List").destroy(task.id)
+                console.log(task.id)
+                let result = await axios.delete(`https://a2p861ej4f.execute-api.ap-southeast-1.amazonaws.com/Prod/deleterecordid/${task.id}`)
+                console.log(result.status)
+                // base("Todo List").destroy(task.id)
               }}
               className="btn btn-danger"
             >

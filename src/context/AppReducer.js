@@ -10,7 +10,7 @@ export default (state, action) => {
       }
 
     case "RETRIEVED_TASKS":
-      console.log("Action payload: ", action.payload)
+      // console.log("Action payload: ", action.payload)
       return {
         tasks: [...action.payload, ...state.tasks]
       }
