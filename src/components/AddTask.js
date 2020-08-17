@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { Button, Form, FormGroup, Label, Input } from "reactstrap"
-import { GlobalContext, base } from "../context/GlobalContext"
+import { GlobalContext } from "../context/GlobalContext"
 
 function AddTask() {
   const { addTask } = useContext(GlobalContext)
@@ -22,7 +22,7 @@ function AddTask() {
     }
 
     await axios
-      .post("https://a2p861ej4f.execute-api.ap-southeast-1.amazonaws.com/Prod/createrecord", {
+      .post("https://l62skuyz33.execute-api.ap-southeast-1.amazonaws.com/Prod/createrecord", {
         task: task.name,
         status: task.status,
         duedate: task.date,
@@ -40,31 +40,6 @@ function AddTask() {
         }
       )
     history.push("/")
-    //
-
-    // base("Todo List").create(
-    //   [
-    //     {
-    //       fields: {
-    //         Task: task.name,
-    //         Status: task.status,
-    //         "Due Date": task.date
-    //       }
-    //     }
-    //   ],
-    //   function (err, records) {
-    //     if (err) {
-    //       console.error(err)
-    //       return
-    //     }
-    //     records.forEach(function (record) {
-    //       task.id = record.getId()
-    //       addTask(task)
-    //     })
-    //   }
-    // )
-    // console.log(task)
-    // history.push("/")
   }
 
   return (

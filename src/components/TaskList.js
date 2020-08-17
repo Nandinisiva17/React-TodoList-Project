@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { ListGroup, ListGroupItem, ListGroupItemText, Button } from "reactstrap"
 import { Link } from "react-router-dom"
-import { GlobalContext, base } from "../context/GlobalContext"
+import { GlobalContext } from "../context/GlobalContext"
 
 function TaskList() {
   const { tasks, removeTask } = useContext(GlobalContext)
@@ -30,9 +30,8 @@ function TaskList() {
               onClick={async () => {
                 removeTask(task.id)
                 console.log(task.id)
-                let result = await axios.delete(`https://a2p861ej4f.execute-api.ap-southeast-1.amazonaws.com/Prod/deleterecordid/${task.id}`)
+                let result = await axios.delete(`https://l62skuyz33.execute-api.ap-southeast-1.amazonaws.com/Prod/deleterecordid/${task.id}`)
                 console.log(result.status)
-                // base("Todo List").destroy(task.id)
               }}
               className="btn btn-danger"
             >

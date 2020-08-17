@@ -1,14 +1,14 @@
 import React, { useContext, useState, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { Button, Form, FormGroup, Label, Input } from "reactstrap"
-import { GlobalContext, base } from "../context/GlobalContext"
+import { GlobalContext } from "../context/GlobalContext"
 
 function EditTask(props) {
   const { tasks, editTask } = useContext(GlobalContext)
   const [selectedTask, setSelectedTask] = useState({
     id: "",
     name: "",
-    staus: "",
+    status: "",
     date: ""
   })
   const history = useHistory()
@@ -25,7 +25,7 @@ function EditTask(props) {
     e.preventDefault()
     console.log("selectedid: ", selectedTask.id)
     await axios
-      .put(`https://a2p861ej4f.execute-api.ap-southeast-1.amazonaws.com/Prod/updaterecordid/${selectedTask.id}`, {
+      .put(`https://l62skuyz33.execute-api.ap-southeast-1.amazonaws.com/Prod/updaterecordid/${selectedTask.id}`, {
         task: selectedTask.name,
         status: selectedTask.status,
         duedate: selectedTask.date
@@ -38,17 +38,6 @@ function EditTask(props) {
           console.log(error)
         }
       )
-    // console.log(result.status)
-    // base("Todo List").update([
-    //   {
-    //     id: selectedTask.id,
-    //     fields: {
-    //       Task: selectedTask.name,
-    //       Status: selectedTask.status,
-    //       "Due Date": selectedTask.date
-    //     }
-    //   }
-    // ])
     editTask(selectedTask)
     history.push("/")
   }

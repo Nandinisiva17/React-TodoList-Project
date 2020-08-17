@@ -35,17 +35,22 @@ export const GlobalProvider = ({ children }) => {
 
   const editTask = task => {
     dispatch({
-      type: "EDIT_USER",
+      type: "EDIT_TASK",
       payload: task
     })
   }
 
-  // const retrievedTask = ([tasks]) => {
-  //   dispatch({
-  //     type: "RETRIEVED_TASK",
-  //     payload: [tasks]
-  //   })
-  // }
+  const updateTaskStatus = () => {
+    dispatch({
+      type: "UPDATE_TASK_STATUS"
+    })
+  }
+
+  const updateTaskDueDate = () => {
+    dispatch({
+      type: "UPDATE_TASK_DUEDATE"
+    })
+  }
 
   return (
     <GlobalContext.Provider
@@ -54,7 +59,9 @@ export const GlobalProvider = ({ children }) => {
         removeTask,
         addTask,
         retrievedTasks,
-        editTask
+        editTask,
+        updateTaskStatus,
+        updateTaskDueDate
       }}
     >
       {children}
